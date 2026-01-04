@@ -5,6 +5,7 @@ yt-dlp
 langchain
 langchain-core
 langchain-community
+langchain-classic
 langchain-google-genai
 python-dotenv
 pydantic
