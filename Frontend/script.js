@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://exambot-c6y7.onrender.com";
 
 document.addEventListener('DOMContentLoaded', () => {
     // Determine which page logic to run based on existing elements
@@ -335,4 +335,5 @@ function initBotPage() {
         // Simple formatting to make backend text look okay in HTML
         return text.replace(/\n/g, '<br>');
     }
+
 }
