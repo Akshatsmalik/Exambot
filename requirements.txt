@@ -3,6 +3,8 @@ uvicorn
 requests
 yt-dlp
 langchain
+langchain-core
+langchain-community
 langchain-google-genai
 python-dotenv
 pydantic
