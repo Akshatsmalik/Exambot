@@ -1,0 +1,425 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+
+}
+
+body {
+    background: #f0f0f0;
+    color: #333;
+
+}
+
+.site-header {
+    width: 100%;
+    background: rgba(207, 51, 51, 0.87);
+    padding: 30px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    border-radius: 10px;
+    margin-top: 20px;  
+
+}
+
+h1 {
+    color: #000000;
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 20px;
+    text-align: center;
+
+}
+
+
+
+p {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+
+
+h3 {
+    color: #55555549;
+    font-size: 0.8rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+
+}
+
+
+
+.nav-links a {
+
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease,
+        opacity 0.3s ease;
+    transform-origin: bottom;
+
+}
+
+.nav-links a:hover {
+    color: #000000;
+    transform: scale(120%);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+
+
+.container {
+    background: #fff;
+    width: 100%;
+    max-width: 800px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 2px solid #dadce0;
+    font-size: 16px;
+
+}
+
+
+#askBtn {
+    margin-top: 30px;
+    width: 100%;
+    padding: 14px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+
+}
+
+
+
+footer{
+  text-align: center;
+    padding: 20px;
+    color: #666;
+    margin-top: 40px;
+}
+
+
+
+main{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+
+
+main span{
+    font-weight:bold;
+    font-size: 1rem;
+    color: #999;
+}
+
+
+
+.messages{
+    margin-top:30px
+}
+
+
+
+.chat{
+    flex:1;
+    display:flex;
+    flex-direction: column;
+}
+
+
+
+.chat-header {
+    padding: 5px 20px;
+    background: #ffffff;
+    border-bottom: 3px solid #ddddddf1;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #7a7a7a;
+
+}
+
+.messages {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: #f7f7f8;
+}
+
+
+.message {
+    max-width: 850px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    line-height: 1.5;
+    font-size: 15px;
+
+}
+
+
+
+.message.bot {
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    box-shadow: #66666633 0px 4px 8px;
+
+}
+
+
+
+.message.user {
+    background: #ff0000;
+    color: #ffffff;
+    margin-left: auto;
+
+}
+
+
+
+.input-area {
+    margin-top:475px;
+    display: flex;
+    gap: 12px;
+    padding: 20px;
+    border-top: 1px solid #acacac;
+    background: #cccccc34;
+
+}
+
+
+.input-area input {
+    flex: 1;
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+
+}
+
+.input-area input:focus {
+    border-color: #ff0000;
+}
+
+.input-area button {
+    padding: 14px 24px;
+    border-radius: 8px;
+    border: none;
+    background: #ff0000;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition:background 0.2s ease;
+
+} 
+.input-area button:hover {
+    background: #d90000;
+}
+
+/* =============================
+   MAIN CONTAINER & LAYOUT
+   ============================= */
+/* The main wrapper centering everything */
+main.container {
+    max-width: 900px;
+    margin: 40px auto; /* Centers the container on the page */
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Headings and Paragraphs inside Main */
+main.container h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+main.container p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* =============================
+   INPUT SECTION (The Form)
+   ============================= */
+.input-section {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left; /* Aligns labels/placeholders to the left */
+}
+
+/* Input Fields */
+.input-section input, 
+.input-section textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #dadce0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: "Segoe UI", sans-serif;
+    transition: border-color 0.2s ease;
+}
+
+.input-section textarea {
+    resize: vertical; /* Allows user to make it taller */
+    min-height: 100px;
+}
+
+.input-section input:focus, 
+.input-section textarea:focus {
+    border-color: #ff0000; /* Red focus border */
+    outline: none;
+}
+
+/* The 'Add Note' Button */
+#add-btn {
+    padding: 14px;
+    background: #ff0000; /* Bright Red */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#add-btn:hover {
+    background: #d90000; /* Darker Red on hover */
+}
+
+#add-btn:active {
+    transform: scale(0.98); /* Slight click effect */
+}
+
+/* Divider Line */
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 10px 0;
+}
+
+/* =============================
+   NOTES DISPLAY (The Grid)
+   ============================= */
+.notes-grid {
+    display: grid;
+    /* Automatically fits columns (min width 250px) */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+/* NOTE CARDS (Generated by JS) */
+/* Essential to include this so the JS notes look good */
+.note-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid #ff0000; /* Red accent strip */
+    text-align: left;
+    position: relative;
+    word-wrap: break-word;
+    transition: transform 0.2s;
+}
+
+.note-card:hover {
+    transform: translateY(-5px); /* Lifts up slightly on hover */
+}
+
+.note-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    padding-right: 30px; /* Space for delete button */
+}
+
+.note-card p {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: pre-wrap; /* Keeps paragraphs/line breaks */
+}
+
+/* Delete Button on the card */
+.delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #ff0000;
+    color: white;
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-btn:hover {
+    background: #b30000;
+}

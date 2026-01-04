@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Chat</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Youtube Transcription</a></li>
+                <li><a href="notes.html">Notes</a></li>
+                <li><a href="bot.html">Q/A BOT</a></li>
+            </ul>
+        </nav>  
+    </header>
+
+    <div class="app">
+
+    <main class="chat">
+        <div class="chat-header">
+            <h2>Chat Session<h2>
+        </div>
+
+        <div class="messages" id="messages">
+            <div class="message bot">
+                Hello 👋 How can I help you today?
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="input" placeholder="Send a message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </main>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>

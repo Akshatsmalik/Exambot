@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Chat - Notes</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Youtube Transcription</a></li>
+                <li><a href="notes.html" class="active">Notes</a></li> <li><a href="bot.html">Q/A BOT</a></li>
+            </ul>
+        </nav>  
+    </header>
+
+    <main class="container">
+        <h1>Your Notes Page</h1>
+        <p>View and manage your study topics below.</p>
+
+        <section class="input-section">
+            <input type="text" id="note-topic" placeholder="Topic / Title (e.g., Python Basics)" />
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+            * The AI will automatically generate detailed notes for this topic.
+        </p>            
+        <button id="add-btn">Generate notes</button>
+        </section>
+
+        <hr />
+
+        <section id="notes-container" class="notes-grid">
+            </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
