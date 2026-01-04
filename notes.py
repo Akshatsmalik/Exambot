@@ -1,14 +1,14 @@
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder, PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain.memory import ConversationBufferMemory
+# from langchain.memory import ConversationBufferMemory
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_core.tools import tool
 from yttranscriber import model
 
-memory = ConversationBufferMemory(
-    memory_key="chat_history",
-    return_messages=True
-)
+# memory = ConversationBufferMemory(
+#     memory_key="chat_history",
+#     return_messages=True
+# )
 
 # ==================== TOOL DEFINITIONS ====================
 
@@ -88,7 +88,6 @@ def total_evaluate(conversation_history: str, topics: str) -> str:
         TOPICS COVERED: {topics}
         
         STUDENT'S EXAM RESPONSES:
-        {conversation_history}
         
         Provide a detailed evaluation report as you would for a university student:
         
@@ -168,20 +167,12 @@ def make_notes(topics: str, focus_areas: str = "") -> str:
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", "You are a university professor creating comprehensive exam preparation materials. Focus on clarity, depth, and exam readiness."),
-            MessagesPlaceholder(variable_name="chat_history"),
             ("human", prompt_text)
         ])
 
         chain = prompt | model | StrOutputParser()
 
-        response = chain.invoke({
-            "chat_history": memory.load_memory_variables({})["chat_history"]
-        })
-
-        memory.save_context(
-            {"user": f"Create notes for: {topics}"},
-            {"assistant": response}
-        )
+        response = chain.invoke({})
 
         return response
 
@@ -360,3 +351,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
