@@ -4,7 +4,8 @@
 # from langchain_community.document_loaders.youtube import TranscriptFormat
 # from langchain_huggingface import HuggingFaceEmbeddings
 # from langchain_chroma import Chroma
-from langchain.prompts import PromptTemplate
+# from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
@@ -124,4 +125,5 @@ def main():
         return
 
 if __name__ == '__main__':
+
     main()
