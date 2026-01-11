@@ -1,13 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-# from langchain.prompts import PromptTemplate
-from langchain_core.prompts import PromptTemplate
+from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 import logging
-
-# Import your existing utilities
-# Ensure yttranscriber.py and notes.py are in the same directory
 from yttranscriber import extract_youtube_transcript as get_youtube_transcript
 from yttranscriber import ask_questions as answer_question
 from yttranscriber import model 
@@ -15,7 +11,7 @@ from notes import generate_questions, evaluate, total_evaluate, extract_weak_top
 
 app = FastAPI()
 
-# Enable CORS for frontend communication
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -24,7 +20,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Pydantic Models for Request/Response Validation ---
 
 class MainRequest(BaseModel):
     video_url: str
@@ -34,13 +29,16 @@ class TopicsRequest(BaseModel):
     user_topics: str
 
 class AnswerRequest(BaseModel):
-    question_text: str  # Frontend must send the text of the question being answered
+    question_text: str 
     answer_text: str
-    topic: str          # The general topic (e.g., "Machine Learning")
+    topic: str         
 
 class FinalRequest(BaseModel):
     topics: str
-    full_conversation: str # The accumulated string of Q&A history
+    full_conversation: str
+
+class NotesRequest(BaseModel):
+    topic: str
 
 
 def parse_questions_to_list(questions_text: str):
@@ -51,9 +49,7 @@ def parse_questions_to_list(questions_text: str):
     questions = []
     for line in lines:
         clean_line = line.strip()
-        # Check if line starts with a digit (e.g., "1. What is...")
         if clean_line and any(char.isdigit() for char in clean_line[:3]):
-            # Remove the numbering (e.g., "1. ")
             if '.' in clean_line:
                 clean_line = clean_line.split('.', 1)[-1].strip()
             questions.append(clean_line)
@@ -64,9 +60,9 @@ def generate_notes_stateless(topics: str, focus_areas: str) -> str:
     Re-implementation of make_notes from notes.py to be stateless.
     It does not rely on the global 'memory' object.
     """
-    prompt_template = """You are a university professor creating comprehensive study materials.
+    prompt_template = """You are a exam bot for a university creating comprehensive study materials.
     
-    Create detailed, exam-focused notes on: {topics}
+    Create detailed, exam-focused notes on: {topics} and if the user asks for short notes then make it short but still detailed. like flashcards
     
     PRIORITY FOCUS on these weak areas identified in the student's exam: {focus_areas}
     
@@ -87,7 +83,6 @@ def generate_notes_stateless(topics: str, focus_areas: str) -> str:
     chain = prompt | model | StrOutputParser()
     return chain.invoke({'topics': topics, 'focus_areas': focus_areas})
 
-# --- Endpoints ---
 
 @app.get("/")
 def welcome(): 
@@ -121,20 +116,17 @@ def start_session(request: TopicsRequest):
     Returns a list of questions for the frontend to manage.
     """
     try:
-        # 1. Invoke the tool from notes.py
         raw_response = generate_questions.invoke({'topics': request.user_topics})
         
-        # 2. Parse the raw string into a list
         questions_list = parse_questions_to_list(raw_response)
         
-        # Fallback if parsing fails
         if not questions_list:
             questions_list = [raw_response]
 
         return {
-            "session_id": "session_" + str(hash(request.user_topics)), # Simple session ID
+            "session_id": "session_" + str(hash(request.user_topics)), 
             "total_questions": len(questions_list),
-            "questions": questions_list, # Send all questions to frontend
+            "questions": questions_list, 
             "topics": request.user_topics
         }
     except Exception as e:
@@ -146,7 +138,6 @@ def submit_answer(request: AnswerRequest):
     Evaluates a single answer.
     """
     try:
-        # Invoke the evaluation tool from notes.py
         evaluation_result = evaluate.invoke({
             'question': request.question_text,
             'answer': request.answer_text,
@@ -165,16 +156,11 @@ def final_evaluation(request: FinalRequest):
     Generates the final report and study notes.
     """
     try:
-        # 1. Generate the total evaluation report
         total_eval_report = total_evaluate.invoke({
             'conversation_history': request.full_conversation,
             'topics': request.topics
         })
-        
-        # 2. Extract weak topics from the report
         weak_topics = extract_weak_topics(total_eval_report)
-        
-        # 3. Generate notes (using the stateless function defined above)
         study_notes = generate_notes_stateless(request.topics, weak_topics)
         
         return {
@@ -184,3 +170,12 @@ def final_evaluation(request: FinalRequest):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Final evaluation failed: {str(e)}")
+
+@app.post("/generate_notes_only")
+def generate_notes_only(request: NotesRequest):
+    """Generates notes without an exam session"""
+    try:
+        notes = generate_notes_stateless(request.topic, "General Overview & Core Concepts")
+        return {"notes": notes, "topic": request.topic}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Note generation failed: {str(e)}")
